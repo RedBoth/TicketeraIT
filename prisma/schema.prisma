@@ -15,8 +15,8 @@ enum Role {
 
 model Tenant {
   id            String   @id @default(uuid())
-  name          String   // Ej: "Globex Corp"
-  slug          String   @unique // Ej: "globex" (el que machea con tu URL [tenantSlug])
+  name          String   
+  slug          String   @unique
   
   // Marca Blanca (Branding)
   primaryColor  String   @default("#6366F1")
@@ -35,13 +35,13 @@ model Tenant {
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
-  password  String   // Encriptada con bcrypt
+  password  String   
   name      String
   role      Role     @default(CLIENTE_FINAL)
   
   // Aislamiento Multi-tenant
-  tenantId  String
-  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenantId  String?
+  tenant    Tenant?   @relation(fields: [tenantId], references: [id])
   
   tickets   Ticket[]
   createdAt DateTime @default(now())
@@ -49,7 +49,7 @@ model User {
 
 model Equipment {
   id           String   @id @default(uuid())
-  type         String   // Ej: "Server", "Laptop"
+  type         String   
   brand        String
   model        String
   serialNumber String   @unique

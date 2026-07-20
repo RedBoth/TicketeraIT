@@ -70,4 +70,19 @@ export class TicketService {
       }
     });
   }
+
+  /**
+   * Obtiene TODOS los tickets de la plataforma (de cualquier tenant)
+   * incluyendo la empresa (tenant) y el equipamiento asociado
+   */
+  static async getAllTicketsForAdmin() {
+    return await prisma.ticket.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        tenant: true,
+        equipment: true,
+        user: true,
+      }
+    });
+  }
 }

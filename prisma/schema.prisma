@@ -1,0 +1,98 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN_TENANT
+  TECNICO
+  CLIENTE_FINAL
+}
+
+model Tenant {
+  id            String   @id @default(uuid())
+  name          String   // Ej: "Globex Corp"
+  slug          String   @unique // Ej: "globex" (el que machea con tu URL [tenantSlug])
+  
+  // Marca Blanca (Branding)
+  primaryColor  String   @default("#6366F1")
+  accentColor   String   @default("#10B981")
+  logoUrl       String?
+  
+  // Relaciones
+  users         User[]
+  tickets       Ticket[]
+  equipment     Equipment[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String   // Encriptada con bcrypt
+  name      String
+  role      Role     @default(CLIENTE_FINAL)
+  
+  // Aislamiento Multi-tenant
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  tickets   Ticket[]
+  createdAt DateTime @default(now())
+}
+
+model Equipment {
+  id           String   @id @default(uuid())
+  type         String   // Ej: "Server", "Laptop"
+  brand        String
+  model        String
+  serialNumber String   @unique
+  
+  // Aislamiento Multi-tenant
+  tenantId     String
+  tenant       Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  tickets      Ticket[]
+  createdAt    DateTime @default(now())
+}
+
+model Ticket {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  status      String   @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED, CLOSED
+  priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH, CRITICAL
+  
+  // Relaciones obligatorias por Tenant
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  // Relación opcional con el creador y equipo afectado
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  equipmentId String?
+  equipment   Equipment? @relation(fields: [equipmentId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workLogs WorkLog[]
+}
+
+model WorkLog {
+  id          String   @id @default(uuid())
+  description String   // Qué se hizo en este bloque de tiempo
+  hours       Float    // Admitimos decimales (ej: 1.5 horas)
+  createdAt   DateTime @default(now())
+  
+  // Relaciones
+  ticketId    String
+  ticket      Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+}

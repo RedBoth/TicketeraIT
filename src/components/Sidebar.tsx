@@ -5,6 +5,7 @@ import {
   Settings, 
   LogOut 
 } from "lucide-react";
+import { logoutAction } from "@/actions/auth.actions";
 
 interface SidebarProps {
   tenantSlug: string;
@@ -74,10 +75,12 @@ export default function Sidebar({
         </nav>
       </div>
 
-      <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-500 hover:bg-red-950/20 hover:text-red-400 w-full mt-auto transition-all">
-        <LogOut className="w-4 h-4" />
-        Cerrar Sesión
-      </button>
+      <form action={logoutAction} className="mt-auto">
+        <button type="submit" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-500 hover:bg-red-950/20 hover:text-red-400 w-full mt-auto transition-all">
+          <LogOut className="w-4 h-4" />
+          Cerrar Sesión
+        </button>
+      </form>
     </aside>
   );
 }

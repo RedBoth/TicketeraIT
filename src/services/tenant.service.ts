@@ -49,4 +49,20 @@ export class TenantService {
       return total + ticketHours;
     }, 0);
   }
+
+  //Obtiene todas las empresas registradas con su conteo de equipos y datos para la vista del Técnico
+  static async getAllTenantsWithStats() {
+    return await prisma.tenant.findMany({
+      orderBy: { name: 'asc' },
+      include: {
+        _count: {
+          select: {
+            equipment: true,
+            tickets: true,
+            users: true,
+          }
+        }
+      }
+    });
+  }
 }

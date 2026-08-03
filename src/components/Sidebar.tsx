@@ -3,7 +3,8 @@ import {
   Ticket as TicketIcon, 
   Laptop, 
   Settings, 
-  LogOut 
+  LogOut,
+  Building2
 } from "lucide-react";
 import { logoutAction } from "@/actions/auth.actions";
 
@@ -12,7 +13,8 @@ interface SidebarProps {
   tenantName: string;
   tenantPrimaryColor: string;
   tenantAccentColor: string;
-  currentPath: "dashboard" | "tickets" | "inventory" | "settings";
+  currentPath: "dashboard" | "tickets" | "inventory" | "settings" | "companies";
+  userRole?: string; //"CLIENTE_FINAL", "TECNICO", "SUPER_ADMIN"
 }
 
 export default function Sidebar({ 
@@ -20,8 +22,11 @@ export default function Sidebar({
   tenantName, 
   tenantPrimaryColor, 
   tenantAccentColor,
-  currentPath 
+  currentPath,
+  userRole
 }: SidebarProps) {
+
+  const isTechnician = userRole === "TECNICO" || userRole === "SUPER_ADMIN";
   
   const linkClass = (path: typeof currentPath) => {
     const base = "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all";
@@ -68,6 +73,15 @@ export default function Sidebar({
             />
             Mi Equipamiento
           </a>
+          {isTechnician && (
+            <a href="/admin/tickets" className={linkClass("companies")}>
+              <Building2 
+                className="w-4 h-4" 
+                style={{ color: currentPath === "companies" ? tenantAccentColor : "#64748b" }} 
+              />
+              Todas las Compañías
+            </a>
+          )}
           <a href="#" className={linkClass("settings")}>
             <Settings className="w-4 h-4 text-slate-500" />
             Configuración

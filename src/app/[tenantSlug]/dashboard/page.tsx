@@ -5,6 +5,7 @@ import MetricCard from "@/components/MetricCard";
 import PriorityBadge from "@/components/PriorityBadge";
 import StatusBadge from "@/components/StatusBadge";
 import { TenantService } from "@/services/tenant.service";
+import { getCurrentUser } from "@/lib/auth";
 import { 
   Ticket as TicketIcon, 
   CheckCircle2,
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default async function DashboardPage({ params }: Props) {
+  const user = await getCurrentUser();
   const { tenantSlug } = await params;
 
   // Consumimos el servicio unificado
@@ -43,6 +45,7 @@ export default async function DashboardPage({ params }: Props) {
         tenantPrimaryColor={tenant.primaryColor}
         tenantAccentColor={tenant.accentColor}
         currentPath="dashboard"
+        userRole={user?.role}
       />
 
       {/* CONTENEDOR PRINCIPAL */}

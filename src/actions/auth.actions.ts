@@ -25,7 +25,7 @@ export async function loginAction(prevState: any, formData: FormData) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 7 // 7 días de sesión
+    maxAge: 60 * 60 * 24 * 7
   });
 
   // REDIRECCIÓN SEGÚN ROL
@@ -37,7 +37,7 @@ export async function loginAction(prevState: any, formData: FormData) {
     }
     redirectUrl = `/${user.tenant.slug}/dashboard`;
   } else {
-    redirectUrl = `/admin/tickets`;
+    redirectUrl = `/admin/dashboard`;
   }
 
   redirect(redirectUrl);

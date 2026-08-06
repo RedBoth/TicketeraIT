@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import CreateCompanyModal from "@/components/CreateCompanyModal";
 import { createTenantAction } from "@/actions/tenant.actions";
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 import { ArrowRight, Laptop, Users, Building2 } from "lucide-react";
 
 export default async function CompaniesPage() {
@@ -21,6 +22,8 @@ export default async function CompaniesPage() {
         userRole={user?.role}
       />
 
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <Header user={user} />
       {/* Contenido Principal (Lo marcado en el recuadro blanco) */}
       <main className="flex-1 p-8 overflow-y-auto">
         <div className="max-w-7xl mx-auto space-y-8">
@@ -125,6 +128,7 @@ export default async function CompaniesPage() {
 
         </div>
       </main>
+      </div>
     </div>
   );
 }

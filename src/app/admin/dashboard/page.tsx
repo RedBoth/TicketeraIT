@@ -2,6 +2,7 @@ import { TicketService } from "@/services/ticket.service";
 import { getCurrentUser } from "@/lib/auth";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 import PriorityBadge from "@/components/PriorityBadge";
 import StatusBadge from "@/components/StatusBadge";
 import MetricCard from "@/components/MetricCard";
@@ -32,6 +33,8 @@ export default async function AdminDashboardPage() {
         userRole={user?.role}
       />
 
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <Header user={user} />
       {/* Contenido Principal */}
       <main className="flex-1 p-8 overflow-y-auto">
         <div className="max-w-7xl mx-auto space-y-8">
@@ -156,6 +159,7 @@ export default async function AdminDashboardPage() {
 
         </div>
       </main>
+      </div>
     </div>
   );
 }

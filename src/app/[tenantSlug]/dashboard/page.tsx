@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { notFound } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 import MetricCard from "@/components/MetricCard";
 import PriorityBadge from "@/components/PriorityBadge";
 import StatusBadge from "@/components/StatusBadge";
@@ -48,6 +49,8 @@ export default async function DashboardPage({ params }: Props) {
         userRole={user?.role}
       />
 
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <Header user={user} />
       {/* CONTENEDOR PRINCIPAL */}
       <main className="flex-1 p-8 overflow-y-auto">
         <header className="flex justify-between items-center mb-8">
@@ -143,6 +146,7 @@ export default async function DashboardPage({ params }: Props) {
         </section>
 
       </main>
+      </div>
     </div>
   );
 }

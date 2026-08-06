@@ -37,11 +37,40 @@ export class TicketService {
     });
   }
 
+  //Resuelve o cierra un ticket imputando horas y registrando la solución
+  static async resolveTicket(data: {
+    ticketId: string;
+    description: string;
+    hours: number;
+    newStatus?: "RESOLVED" | "CLOSED" | "IN_PROGRESS";
+  }) {
+    const { ticketId, description, hours, newStatus = "RESOLVED" } = data;
+
+    // Usamos una transacción para garantizar consistencia de datos
+    return await prisma.$transaction([
+      // 1. Creamos el registro de trabajo (WorkLog)
+      prisma.workLog.create({
+        data: {
+          description,
+          hours,
+          ticketId
+        }
+      }),
+      // 2. Actualizamos el estado del ticket
+      prisma.ticket.update({
+        where: { id: ticketId },
+        data: { status: newStatus }
+      })
+    ]);
+  }
+
   // Obtiene la información detallada de un ticket, su equipamiento y su historial de horas (workLogs)
   static async getTicketDetails(id: string) {
     return await prisma.ticket.findUnique({
       where: { id },
       include: {
+        tenant: true,
+        user: true,
         equipment: true,
         workLogs: { orderBy: { createdAt: "desc" } }
       }

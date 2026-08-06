@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { TicketService } from "@/services/ticket.service";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function createTicketAction(
   tenantSlug: string, 
@@ -62,4 +63,30 @@ export async function addWorkLogAction(
   }
 
   redirect(`/${tenantSlug}/tickets/${ticketId}`);
+}
+
+export async function resolveTicketAction(
+  ticketId: string, 
+  tenantSlug: string, 
+  formData: FormData
+) {
+  const description = formData.get("description") as string;
+  const hours = parseFloat(formData.get("hours") as string);
+  const newStatus = (formData.get("status") as "RESOLVED" | "CLOSED") || "RESOLVED";
+
+  if (!description || isNaN(hours) || hours <= 0) {
+    throw new Error("Por favor ingresá una descripción válida y una cantidad de horas mayor a 0.");
+  }
+
+  await TicketService.resolveTicket({
+    ticketId,
+    description,
+    hours,
+    newStatus
+  });
+
+  // Revalidamos la ruta del detalle y los dashboards
+  revalidatePath(`/${tenantSlug}/tickets/${ticketId}`);
+  revalidatePath(`/admin/tickets`);
+  revalidatePath(`/admin/dashboard`);
 }

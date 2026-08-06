@@ -7,7 +7,8 @@ import {
   Building2,
   ShieldCheck,
   UserCheck,
-  ChevronRight
+  ChevronRight,
+  Users
 } from "lucide-react";
 import { logoutAction } from "@/actions/auth.actions";
 import Link from "next/link";
@@ -17,7 +18,7 @@ interface SidebarProps {
   tenantName: string;
   tenantPrimaryColor: string;
   tenantAccentColor: string;
-  currentPath: "dashboard" | "tickets" | "inventory" | "settings" | "companies";
+  currentPath: "dashboard" | "tickets" | "inventory" | "settings" | "companies" | "users";
   userRole?: string;
 }
 
@@ -144,6 +145,11 @@ export default function Sidebar({
                 <Link href={`/${tenantSlug}/inventory`} className={linkClass(!isInAdminConsole && currentPath === "inventory")}>
                   <Laptop className="w-4 h-4 text-indigo-400" />
                   <span className="truncate">Equipamiento {tenantName}</span>
+                </Link>
+
+                <Link href={`/${tenantSlug}/users`} className={linkClass(!isInAdminConsole && currentPath === "users")}>
+                  <Users className="w-4 h-4 text-indigo-400" />
+                  <span className="truncate">Usuarios {tenantName}</span>
                 </Link>
               </div>
             )}

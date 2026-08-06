@@ -1,7 +1,9 @@
 import { TenantService } from "@/services/tenant.service";
 import { getCurrentUser } from "@/lib/auth";
+import CreateCompanyModal from "@/components/CreateCompanyModal";
+import { createTenantAction } from "@/actions/tenant.actions";
 import Sidebar from "@/components/Sidebar";
-import { Plus, ArrowRight, Laptop, Users, Building2 } from "lucide-react";
+import { ArrowRight, Laptop, Users, Building2 } from "lucide-react";
 
 export default async function CompaniesPage() {
   const user = await getCurrentUser();
@@ -33,10 +35,7 @@ export default async function CompaniesPage() {
             </div>
 
             {/* Botón arriba a la derecha para registrar empresa */}
-            <button className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-lg transition-all shadow-lg self-start sm:self-auto cursor-pointer">
-              <Plus className="w-4 h-4" />
-              <span>Registrar Nueva Empresa</span>
-            </button>
+            <CreateCompanyModal handleCreateTenant={createTenantAction} />
           </div>
 
           {/* Grilla de Tarjetas de Empresas */}

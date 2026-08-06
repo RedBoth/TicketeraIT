@@ -37,7 +37,7 @@ export default function CreateTicketModal({
       {/* Botón Disparador */}
       <button 
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-2 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-110"
+        className="inline-flex items-center gap-2 text-slate-950 font-bold text-white text-xs px-4 py-2.5 rounded-lg transition-all shadow-lg cursor-pointer hover:brightness-110"
         style={{ backgroundColor: tenantPrimaryColor }}
       >
         <Plus className="w-4 h-4" />

@@ -133,4 +133,21 @@ export class TenantService {
       where: { slug }
     });
   }
+
+  //Actualiza la personalización / branding del Tenant
+  static async updateTenantBranding(data: {
+    tenantId: string;
+    name: string;
+    primaryColor: string;
+    accentColor: string;
+  }) {
+    return await prisma.tenant.update({
+      where: { id: data.tenantId },
+      data: {
+        name: data.name,
+        primaryColor: data.primaryColor,
+        accentColor: data.accentColor,
+      },
+    });
+  }
 }

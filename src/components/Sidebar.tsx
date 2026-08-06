@@ -88,10 +88,10 @@ export default function Sidebar({
               <Laptop className="w-4 h-4 text-slate-400" />
               <span>Mi Equipamiento</span>
             </Link>
-            <a href="#" className={linkClass(currentPath === "settings")}>
+            <Link href={`/${tenantSlug}/settings`} className={linkClass(currentPath === "settings")}>
               <Settings className="w-4 h-4 text-slate-500" />
               <span>Configuración</span>
-            </a>
+            </Link>
           </nav>
         )}
 
@@ -116,10 +116,10 @@ export default function Sidebar({
                 <Building2 className="w-4 h-4 text-amber-400" />
                 <span>Todas las Compañías</span>
               </Link>
-              <a href="#" className={linkClass(currentPath === "settings")}>
-                <Settings className="w-4 h-4 text-slate-500" />
+              <Link href={`/${tenantSlug}/settings`} className={linkClass(currentPath === "settings")}>
+                <Settings className="w-4 h-4 text-amber-400" />
                 <span>Configuración</span>
-              </a>
+              </Link>
             </div>
 
             {/* 2. SECCIÓN DEL TENANT (Solo aparece cuando está inspeccionando una empresa en particular) */}

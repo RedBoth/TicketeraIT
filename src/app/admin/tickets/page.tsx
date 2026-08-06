@@ -143,13 +143,23 @@ export default async function AdminTicketsPage() {
 
                         {/* Botón de Acción */}
                         <td className="py-4 px-6 whitespace-nowrap text-right">
-                          <Link 
-                            href={`/${ticket.tenant.slug}/tickets/${ticket.id}`}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 rounded-lg border border-amber-500/20 transition-all"
-                          >
-                            <span>Atender</span>
-                            <ChevronRight className="w-3.5 h-3.5" />
-                          </Link>
+                          {ticket.status === "RESOLVED" || ticket.status === "CLOSED" ? (
+                            <Link 
+                              href={`/${ticket.tenant.slug}/tickets/${ticket.id}`}
+                              className="inline-flex items-center gap-1 text-xs font-medium text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700/60 transition-all"
+                            >
+                              <span>Ver detalles</span>
+                              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                            </Link>
+                          ) : (
+                            <Link 
+                              href={`/${ticket.tenant.slug}/tickets/${ticket.id}`}
+                              className="inline-flex items-center gap-1 text-xs font-semibold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 rounded-lg border border-amber-500/20 transition-all"
+                            >
+                              <span>Atender Ticket</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </Link>
+                          )}
                         </td>
                       </tr>
                     ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { UserPlus, PlusCircle, X, User } from "lucide-react";
+import { UserPlus, PlusCircle, X, User, KeyRound } from "lucide-react";
 
 interface CreateUserModalProps {
   handleCreateUser: (formData: FormData) => Promise<void>;
@@ -27,7 +27,6 @@ export default function CreateUserModal({ handleCreateUser }: CreateUserModalPro
 
   return (
     <>
-      {/* Botón Disparador */}
       <button 
         onClick={() => setIsOpen(true)}
         className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-lg transition-all shadow-lg cursor-pointer self-start sm:self-auto"
@@ -36,14 +35,12 @@ export default function CreateUserModal({ handleCreateUser }: CreateUserModalPro
         <span>Crear Usuario</span>
       </button>
 
-      {/* Modal */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
           <div 
             className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 relative overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header del Modal */}
             <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 rounded-lg bg-slate-950 border border-slate-800 text-amber-400">
@@ -69,7 +66,6 @@ export default function CreateUserModal({ handleCreateUser }: CreateUserModalPro
               </div>
             )}
 
-            {/* Formulario */}
             <form action={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
@@ -99,20 +95,38 @@ export default function CreateUserModal({ handleCreateUser }: CreateUserModalPro
 
               <div>
                 <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                  Contraseña Inicial
+                </label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    name="password" 
+                    placeholder="Empresa2026!" 
+                    defaultValue="Empresa2026!"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-3.5 pr-10 py-2.5 text-sm text-amber-400 placeholder-slate-600 focus:outline-none focus:border-amber-500 font-mono" 
+                  />
+                  <KeyRound className="w-4 h-4 text-slate-500 absolute right-3 top-3" />
+                </div>
+                <span className="block text-[11px] text-slate-500 mt-1">
+                  El usuario podrá modificarla más adelante desde su perfil.
+                </span>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                   Rol del Usuario
                 </label>
                 <select 
                   name="role" 
-                  defaultValue="USER"
+                  defaultValue="CLIENTE_FINAL"
                   className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-amber-500"
                 >
-                  <option value="USER">Usuario Estándar (Cliente)</option>
+                  <option value="CLIENTE_FINAL">Usuario Estándar (Cliente)</option>
                   <option value="TECNICO">Técnico / Soporte</option>
                   <option value="SUPER_ADMIN">Administrador General</option>
                 </select>
               </div>
 
-              {/* Footer */}
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800/80 mt-6">
                 <button
                   type="button"

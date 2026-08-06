@@ -106,6 +106,7 @@ export class TenantService {
     name?: string;
     role?: string;
     tenantId: string;
+    password?: string;
   }) {
     const existingUser = await prisma.user.findUnique({
       where: { email: data.email }
@@ -119,8 +120,9 @@ export class TenantService {
       data: {
         email: data.email,
         name: data.name,
-        role: data.role || "USER",
+        role: data.role || "CLIENTE_FINAL",
         tenantId: data.tenantId,
+        password: data.password,
       }
     });
   }

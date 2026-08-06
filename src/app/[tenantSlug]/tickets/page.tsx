@@ -121,13 +121,25 @@ export default async function TicketsPage({ params }: Props) {
                       )}
                     </div>
                     
-                    <Link 
-                      href={`/${tenantSlug}/tickets/${ticket.id}`} 
-                      className="flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white bg-slate-950 hover:bg-slate-800 px-4 py-2.5 rounded-lg border border-slate-800 transition-all self-start md:self-center"
-                    >
-                      <span>Ver Detalles</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-                    </Link>
+                    {/* Lógica dinámica de acción según Rol y Estado del Ticket */}
+                    {(() => {
+                      const isTicketPending = ticket.status !== "RESOLVED" && ticket.status !== "CLOSED";
+                      const shouldShowAttend = isTechnician && isTicketPending;
+
+                      return (
+                        <Link 
+                          href={`/${tenantSlug}/tickets/${ticket.id}`} 
+                          className={`flex items-center gap-2 text-xs transition-all self-start md:self-center px-4 py-2.5 rounded-lg border ${
+                            shouldShowAttend
+                              ? "font-semibold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/20 shadow-md"
+                              : "font-medium text-slate-300 hover:text-white bg-slate-950 hover:bg-slate-800 border-slate-800"
+                          }`}
+                        >
+                          <span>{shouldShowAttend ? "Atender Ticket" : "Ver detalles"}</span>
+                          <ChevronRight className={`w-3.5 h-3.5 ${shouldShowAttend ? "text-amber-400" : "text-slate-400"}`} />
+                        </Link>
+                      );
+                    })()}
                   </div>
                 ))
               )}

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { TicketService } from "@/services/ticket.service";
 import { resolveTicketAction } from "@/actions/ticket.actions";
+import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import PriorityBadge from "@/components/PriorityBadge";
 import StatusBadge from "@/components/StatusBadge";
@@ -52,6 +53,8 @@ export default async function TicketDetailPage({ params }: Props) {
         userRole={user?.role}
       />
 
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <Header user={user} />
       {/* CONTENIDO PRINCIPAL EN 2 COLUMNAS */}
       <main className="flex-1 p-8 overflow-y-auto">
         <div className="max-w-7xl mx-auto space-y-6">
@@ -242,6 +245,7 @@ export default async function TicketDetailPage({ params }: Props) {
 
         </div>
       </main>
+      </div>
     </div>
   );
 }

@@ -22,7 +22,7 @@ Plataforma corporativa de gestión de tickets de soporte técnico e infraestruct
 * **Contador de Casos Activos:** Vista rápida de criticidad por equipo en tiempo real.
 
 ### 🔐 Seguridad & Usuarios
-* **Control de Acceso basado en Roles (RBAC):** Roles de `SUPER_ADMIN`, `TECNICO` y `CLIENTE_FINAL`.
+* **Control de Acceso basado en Roles (RBAC):** Roles de `TECNICO` y `CLIENTE_FINAL`.
 * **Provisión de Cuentas:** Alta y edición manual de empleados por parte del técnico con enmascaramiento y revelación de contraseñas.
 * **Autenticación HTTP-Only:** Sesiones seguras persistidas vía cookies.
 

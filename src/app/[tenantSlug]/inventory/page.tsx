@@ -105,6 +105,7 @@ export default async function InventoryPage({ params }: Props) {
                     <th className="px-6 py-4">Marca</th>
                     <th className="px-6 py-4">Modelo</th>
                     <th className="px-6 py-4">Nº Serie</th>
+                    <th className="px-6 py-4">Dirección MAC</th>
                     <th className="px-6 py-4 text-center">Estado Casos</th>
                   </tr>
                 </thead>
@@ -128,6 +129,9 @@ export default async function InventoryPage({ params }: Props) {
                           <td className="px-6 py-4 text-slate-300">{item.brand}</td>
                           <td className="px-6 py-4 text-slate-300">{item.model}</td>
                           <td className="px-6 py-4 font-mono text-[11px] text-slate-400">{item.serialNumber}</td>
+                          <td className="px-6 py-4 font-mono text-[11px] text-amber-400/90">
+                            {item.macAddress || <span className="text-slate-600 font-sans italic">N/D</span>}
+                          </td>
                           <td className="px-6 py-4 text-center">
                             {activeTicketsCount > 0 ? (
                               <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">

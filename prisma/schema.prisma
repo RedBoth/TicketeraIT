@@ -53,6 +53,7 @@ model Equipment {
   brand        String
   model        String
   serialNumber String   @unique
+  macAddress   String?
   
   // Aislamiento Multi-tenant
   tenantId     String
@@ -60,6 +61,7 @@ model Equipment {
   
   tickets      Ticket[]
   createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
 }
 
 model Ticket {

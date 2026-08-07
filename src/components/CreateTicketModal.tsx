@@ -147,7 +147,7 @@ export default function CreateTicketModal({
                 <button 
                   type="submit" 
                   disabled={isPending}
-                  className="text-slate-950 font-bold text-xs px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition-all disabled:opacity-50"
+                  className="text-slate-950 font-bold text-white text-xs px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition-all disabled:opacity-50"
                   style={{ backgroundColor: tenantPrimaryColor }}
                 >
                   <PlusCircle className="w-4 h-4" />

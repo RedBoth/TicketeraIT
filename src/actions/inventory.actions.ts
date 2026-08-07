@@ -8,6 +8,7 @@ export async function addEquipmentAction(tenantSlug: string, tenantId: string, f
   const brand = formData.get("brand") as string;
   const model = formData.get("model") as string;
   const serialNumber = formData.get("serialNumber") as string;
+  const macAddress = formData.get("macAddress") as string;
 
   if (!type || !brand || !model || !serialNumber) return;
 
@@ -17,6 +18,7 @@ export async function addEquipmentAction(tenantSlug: string, tenantId: string, f
       brand,
       model,
       serialNumber,
+      macAddress: macAddress?.trim() || undefined,
       tenantId,
     });
   } catch (error) {

@@ -108,17 +108,31 @@ export default function EquipmentModal({
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                  Número de Serie
-                </label>
-                <input 
-                  type="text" 
-                  name="serialNumber" 
-                  placeholder="Ej: DP7Z-88901" 
-                  required 
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-amber-500" 
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                    Número de Serie
+                  </label>
+                  <input 
+                    type="text" 
+                    name="serialNumber" 
+                    placeholder="Ej: SN-998811" 
+                    required 
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-amber-500 font-mono" 
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                    Dirección MAC (Opcional)
+                  </label>
+                  <input 
+                    type="text" 
+                    name="macAddress" 
+                    placeholder="Ej: 00:1B:44:11:3A:B7" 
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-amber-500 font-mono" 
+                  />
+                </div>
               </div>
 
               {/* Botones del Footer */}
@@ -133,7 +147,7 @@ export default function EquipmentModal({
                 <button 
                   type="submit" 
                   disabled={isPending}
-                  className="text-slate-950 font-bold text-xs px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition-all disabled:opacity-50"
+                  className="text-slate-950 font-bold text-white text-xs px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition-all disabled:opacity-50"
                   style={{ backgroundColor: tenantPrimaryColor }}
                 >
                   <PlusCircle className="w-4 h-4" />

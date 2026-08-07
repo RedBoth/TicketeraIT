@@ -35,6 +35,7 @@ export class EquipmentService {
     brand: string;
     model: string;
     serialNumber: string;
+    macAddress?: string; // <-- Opcional
     tenantId: string;
   }) {
     return await prisma.equipment.create({
@@ -43,6 +44,7 @@ export class EquipmentService {
         brand: data.brand,
         model: data.model,
         serialNumber: data.serialNumber,
+        macAddress: data.macAddress || null,
         tenantId: data.tenantId,
       },
     });

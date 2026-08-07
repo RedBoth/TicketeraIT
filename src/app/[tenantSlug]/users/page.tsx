@@ -3,9 +3,9 @@ import { getCurrentUser } from "@/lib/auth";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import CreateUserModal from "@/components/CreateUserModal";
+import UserTableRow from "@/components/UserTableRow";
 import { TenantService } from "@/services/tenant.service";
-import { createUserAction } from "@/actions/user.actions";
-import { Mail, Shield, User as UserIcon } from "lucide-react";
+import { createUserAction, updateUserAction } from "@/actions/user.actions";
 
 interface Props {
   params: Promise<{ tenantSlug: string }>;
@@ -65,46 +65,26 @@ export default async function TenantUsersPage({ params }: Props) {
                       <th className="py-3.5 px-6 font-semibold">Nombre Completo</th>
                       <th className="py-3.5 px-6 font-semibold">Email</th>
                       <th className="py-3.5 px-6 font-semibold">Rol</th>
-                      <th className="py-3.5 px-6 font-semibold text-right">Fecha Registro</th>
+                      <th className="py-3.5 px-6 font-semibold">Contraseña</th>
+                      <th className="py-3.5 px-6 font-semibold">Fecha Registro</th>
+                      <th className="py-3.5 px-6 font-semibold text-right">Acciones</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/60">
                     {users.length === 0 ? (
                       <tr>
-                        <td colSpan={4} className="p-12 text-center text-slate-500 italic">
+                        <td colSpan={6} className="p-12 text-center text-slate-500 italic">
                           No hay usuarios registrados para esta empresa todavía.
                         </td>
                       </tr>
                     ) : (
                       users.map((u) => (
-                        <tr key={u.id} className="hover:bg-slate-800/30 transition-colors">
-                          <td className="py-4 px-6 whitespace-nowrap">
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-amber-400 text-xs">
-                                {u.name ? u.name.substring(0, 2).toUpperCase() : <UserIcon className="w-4 h-4 text-slate-400" />}
-                              </div>
-                              <span className="font-semibold text-white">{u.name || "Sin nombre"}</span>
-                            </div>
-                          </td>
-
-                          <td className="py-4 px-6 whitespace-nowrap text-slate-300 font-mono">
-                            <span className="flex items-center gap-1.5">
-                              <Mail className="w-3.5 h-3.5 text-slate-500" />
-                              {u.email}
-                            </span>
-                          </td>
-
-                          <td className="py-4 px-6 whitespace-nowrap">
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-slate-800 text-slate-300 border border-slate-700">
-                              <Shield className="w-3 h-3 text-slate-400" />
-                              {u.role}
-                            </span>
-                          </td>
-
-                          <td className="py-4 px-6 whitespace-nowrap text-right text-slate-400 font-mono text-[11px]">
-                            {new Date(u.createdAt).toLocaleDateString("es-AR")}
-                          </td>
-                        </tr>
+                        <UserTableRow 
+                          key={u.id} 
+                          user={u} 
+                          tenantSlug={tenantSlug} 
+                          handleUpdateUser={updateUserAction.bind(null, tenantSlug)} 
+                        />
                       ))
                     )}
                   </tbody>

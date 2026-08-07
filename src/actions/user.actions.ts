@@ -24,3 +24,20 @@ export async function createUserAction(tenantSlug: string, tenantId: string, for
   revalidatePath(`/${tenantSlug}/users`);
   revalidatePath(`/admin/companies`);
 }
+
+export async function updateUserAction(
+  tenantSlug: string, 
+  userId: string, 
+  formData: FormData
+) {
+  const name = formData.get("name") as string;
+  const password = formData.get("password") as string;
+
+  await UserService.updateUserProfile({
+    userId,
+    name: name || undefined,
+    password: password || undefined,
+  });
+
+  revalidatePath(`/${tenantSlug}/users`);
+}

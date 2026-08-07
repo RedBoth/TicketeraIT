@@ -49,4 +49,25 @@ export class EquipmentService {
       },
     });
   }
+
+  //Actualiza los datos de un equipo del inventario
+  static async updateEquipment(data: {
+    equipmentId: string;
+    type: string;
+    brand: string;
+    model: string;
+    serialNumber: string;
+    macAddress?: string;
+  }) {
+    return await prisma.equipment.update({
+      where: { id: data.equipmentId },
+      data: {
+        type: data.type,
+        brand: data.brand,
+        model: data.model,
+        serialNumber: data.serialNumber,
+        macAddress: data.macAddress || null,
+      },
+    });
+  }
 }

@@ -4,9 +4,9 @@ import { getCurrentUser } from "@/lib/auth";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import EquipmentModal from "@/components/EquipmentModal";
+import EquipmentTableRow from "@/components/EquipmentTableRow";
 import { EquipmentService } from "@/services/equipment.service";
-import { addEquipmentAction } from "@/actions/inventory.actions";
-import { Laptop, Server, Printer } from "lucide-react";
+import { addEquipmentAction, updateEquipmentAction } from "@/actions/inventory.actions";
 
 interface Props {
   params: Promise<{ tenantSlug: string }>;
@@ -17,22 +17,12 @@ export default async function InventoryPage({ params }: Props) {
   const user = await getCurrentUser();
   const isTechnician = user?.role === "TECNICO" || user?.role === "SUPER_ADMIN";
 
-  // 1. Consumimos el servicio para traer datos
   const tenant = await EquipmentService.getInventoryData(tenantSlug);
 
   if (!tenant) notFound();
 
-  // 2. Preparamos la Server Action inyectando el slug y ID de forma segura mediante bind
   const handleAddEquipment = addEquipmentAction.bind(null, tenantSlug, tenant.id);
-
-  // Helper de UI para iconos
-  const getIcon = (type: string) => {
-    switch (type.toLowerCase()) {
-      case "server": return <Server className="w-4 h-4" />;
-      case "printer": return <Printer className="w-4 h-4" />;
-      default: return <Laptop className="w-4 h-4" />;
-    }
-  };
+  const handleUpdateEquipment = updateEquipmentAction.bind(null, tenantSlug);
 
   return (
     <div 
@@ -107,47 +97,28 @@ export default async function InventoryPage({ params }: Props) {
                     <th className="px-6 py-4">Nº Serie</th>
                     <th className="px-6 py-4">Dirección MAC</th>
                     <th className="px-6 py-4 text-center">Estado Casos</th>
+                    <th className="px-6 py-4 text-right">Acciones</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 text-xs">
-                  {tenant.equipment.length === 0 ? (
-                    <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-slate-500 italic">
-                        No hay equipamiento registrado para esta compañía todavía.
-                      </td>
-                    </tr>
-                  ) : (
-                    tenant.equipment.map((item) => {
-                      const activeTicketsCount = item._count.tickets;
-
-                      return (
-                        <tr key={item.id} className="hover:bg-slate-800/20 transition-colors">
-                          <td className="px-6 py-4 font-semibold text-white flex items-center gap-2.5">
-                            <span style={{ color: 'var(--tenant-accent)' }}>{getIcon(item.type)}</span>
-                            {item.type}
-                          </td>
-                          <td className="px-6 py-4 text-slate-300">{item.brand}</td>
-                          <td className="px-6 py-4 text-slate-300">{item.model}</td>
-                          <td className="px-6 py-4 font-mono text-[11px] text-slate-400">{item.serialNumber}</td>
-                          <td className="px-6 py-4 font-mono text-[11px] text-amber-400/90">
-                            {item.macAddress || <span className="text-slate-600 font-sans italic">N/D</span>}
-                          </td>
-                          <td className="px-6 py-4 text-center">
-                            {activeTicketsCount > 0 ? (
-                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                                {activeTicketsCount} {activeTicketsCount === 1 ? "Caso Activo" : "Casos Activos"}
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                                0 Activos
-                              </span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
+                    {tenant.equipment.length === 0 ? (
+                      <tr>
+                        <td colSpan={7} className="px-6 py-12 text-center text-slate-500 italic">
+                          No hay equipamiento registrado para esta compañía todavía.
+                        </td>
+                      </tr>
+                    ) : (
+                      tenant.equipment.map((item) => (
+                        <EquipmentTableRow 
+                          key={item.id}
+                          item={item}
+                          tenantSlug={tenantSlug}
+                          isTechnician={isTechnician}
+                          handleUpdateEquipment={handleUpdateEquipment}
+                        />
+                      ))
+                    )}
+                  </tbody>
               </table>
             </div>
           </section>

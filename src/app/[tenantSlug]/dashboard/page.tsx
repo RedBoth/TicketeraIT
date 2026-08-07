@@ -55,7 +55,7 @@ export default async function DashboardPage({ params }: Props) {
       <main className="flex-1 p-8 overflow-y-auto">
         <header className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Dashboard General</h1>
+            <h1 className="text-2xl font-bold text-white tracking-tight">Dashboard {tenant.name}</h1>
             <p className="text-xs text-slate-400 mt-0.5">Métricas de consumo e incidencias en tiempo real.</p>
           </div>
           <div className="text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-md">
@@ -100,7 +100,7 @@ export default async function DashboardPage({ params }: Props) {
             <table className="w-full text-left text-sm border-collapse">
               <thead>
                 <tr className="bg-slate-950/50 border-b border-slate-800 text-slate-400 text-xs font-semibold tracking-wider uppercase">
-                  <th className="px-6 py-4">Asunto / Incidente</th>
+                  <th className="px-6 py-4">Asunto</th>
                   <th className="px-6 py-4">Equipo Afectado</th>
                   <th className="px-6 py-4">Prioridad</th>
                   <th className="px-6 py-4 text-center">Estado</th>

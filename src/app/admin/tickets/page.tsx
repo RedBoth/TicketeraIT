@@ -91,7 +91,7 @@ export default async function AdminTicketsPage() {
                   <thead>
                     <tr className="border-b border-slate-800 bg-slate-950/50 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                       <th className="py-3.5 px-6 font-semibold">Cliente / Empresa</th>
-                      <th className="py-3.5 px-6 font-semibold">Asunto / Incidencia</th>
+                      <th className="py-3.5 px-6 font-semibold">Asunto</th>
                       <th className="py-3.5 px-6 font-semibold">Estado</th>
                       <th className="py-3.5 px-6 font-semibold">Prioridad</th>
                       <th className="py-3.5 px-6 font-semibold">Fecha</th>

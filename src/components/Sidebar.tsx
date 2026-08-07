@@ -50,11 +50,11 @@ export default function Sidebar({
             className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-white text-sm shadow-md shrink-0"
             style={{ backgroundColor: isInAdminConsole ? '#f59e0b' : tenantPrimaryColor }}
           >
-            {isInAdminConsole ? "CO" : tenantName.substring(0, 2).toUpperCase()}
+            {isInAdminConsole ? "TEC" : tenantName.substring(0, 2).toUpperCase()}
           </div>
           <div className="overflow-hidden">
             <h2 className="text-sm font-bold text-white leading-tight truncate">
-              {isInAdminConsole ? "Control Center" : tenantName}
+              {isInAdminConsole ? "Panel de Tecnico" : tenantName}
             </h2>
             
             <div className="flex items-center gap-1 mt-1">
@@ -82,11 +82,11 @@ export default function Sidebar({
             </Link>
             <Link href={`/${tenantSlug}/tickets`} className={linkClass(currentPath === "tickets")}>
               <TicketIcon className="w-4 h-4 text-slate-400" />
-              <span>Mis Tickets</span>
+              <span>Tickets</span>
             </Link>
             <Link href={`/${tenantSlug}/inventory`} className={linkClass(currentPath === "inventory")}>
               <Laptop className="w-4 h-4 text-slate-400" />
-              <span>Mi Equipamiento</span>
+              <span>Equipamiento</span>
             </Link>
             <Link href={`/${tenantSlug}/settings`} className={linkClass(currentPath === "settings")}>
               <Settings className="w-4 h-4 text-slate-500" />
@@ -102,7 +102,7 @@ export default function Sidebar({
             {/* 1. SECCIÓN GLOBAL (ADMIN) */}
             <div className="space-y-1">
               <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider px-3 block mb-1">
-                Global Console
+                Navegación global
               </span>
               <Link href="/admin/dashboard" className={linkClass(isInAdminConsole && currentPath === "dashboard")}>
                 <LayoutDashboard className="w-4 h-4 text-amber-400" />

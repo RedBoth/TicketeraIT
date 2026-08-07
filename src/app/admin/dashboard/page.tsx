@@ -45,10 +45,10 @@ export default async function AdminDashboardPage() {
               <div className="flex items-center gap-2 mb-1">
                 <Activity className="w-4 h-4 text-emerald-400" />
                 <span className="text-[11px] font-mono font-bold text-emerald-400 uppercase tracking-widest">
-                  Live System Status
+                  Estado del sistema en vivo
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">System Overview</h1>
+              <h1 className="text-2xl font-bold text-white tracking-tight">Visión general del sistema</h1>
               <p className="text-xs text-slate-400 mt-0.5">
                 Métricas globales e incidencias activas en la infraestructura de todos los clientes.
               </p>
@@ -77,7 +77,7 @@ export default async function AdminDashboardPage() {
               title="Nuevos / Pendientes"
               value={metrics.totalPending}
               icon={<Clock className="w-5 h-5 text-amber-400" />}
-              subtext="• Requieren primera atención"
+              subtext="Requieren atención"
               subtextClass="text-amber-400/80 font-medium"
             />
 
@@ -85,7 +85,7 @@ export default async function AdminDashboardPage() {
               title="Fallos Críticos"
               value={metrics.totalCritical}
               icon={<AlertTriangle className="w-5 h-5 text-red-400" />}
-              subtext="Prioridad máxima / Crítica"
+              subtext="Prioridad máxima"
               subtextClass="text-red-400 font-medium"
             />
           </div>
@@ -93,8 +93,8 @@ export default async function AdminDashboardPage() {
           {/* Sección Principal: Alertas y Tickets Críticos / Nuevos */}
           <section className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
             <div className="p-6 border-b border-slate-800 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-amber-400" />
+              <div className="flex items-center gap-3">
+                <AlertTriangle className="w-9 h-9 text-amber-400" />
                 <div>
                   <h2 className="text-base font-bold text-white">Alertas Críticas & Incidentes Prioritarios</h2>
                   <p className="text-xs text-slate-400 mt-0.5">Casos urgentes que requieren acción inmediata.</p>

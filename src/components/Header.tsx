@@ -21,16 +21,16 @@ export default function Header({ user }: HeaderProps) {
     .toUpperCase();
 
   return (
-    <header className="w-full bg-slate-900/60 border-b border-slate-800 px-8 py-3.5 flex items-center justify-end backdrop-blur-md sticky top-0 z-40 select-none">
+    <header className="w-full bg-slate-900/60 border-b border-slate-800 px-8 py-4 flex items-center justify-end backdrop-blur-md sticky top-0 z-40 select-none">
       <div className="flex items-center gap-4">
         
         {/* Etiqueta de Rol / Portal */}
         <div className="text-right hidden sm:block">
-          <span className="text-xs font-semibold text-white block leading-tight">
+          <span className="text-md font-semibold text-white block leading-tight">
             {userName}
           </span>
-          <span className="text-[10px] font-mono text-amber-400/90 block mt-0.5">
-            {isTechnician ? "Technician Portal" : "Client Portal"}
+          <span className="text-sm font-mono text-amber-400/90 block mt-0.5">
+            {isTechnician ? "Tecnico" : "Cliente"}
           </span>
         </div>
 
@@ -39,7 +39,7 @@ export default function Header({ user }: HeaderProps) {
 
         {/* Avatar con Iniciales */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-slate-800 border border-slate-700/80 flex items-center justify-center font-bold text-amber-400 text-xs shadow-inner">
+          <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700/80 flex items-center justify-center font-bold text-amber-400 text-xs shadow-inner">
             {initials || <User className="w-4 h-4 text-slate-400" />}
           </div>
         </div>

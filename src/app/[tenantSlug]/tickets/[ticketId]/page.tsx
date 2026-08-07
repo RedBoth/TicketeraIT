@@ -102,7 +102,7 @@ export default async function TicketDetailPage({ params }: Props) {
 
                 {ticket.equipment && (
                   <div className="mt-4 p-3.5 bg-slate-950 border border-slate-800 rounded-lg flex items-center gap-3 text-xs">
-                    <Wrench className="w-4 h-4 text-slate-400 shrink-0" />
+                    <Wrench className="w-6 h-6 text-slate-400 shrink-0" />
                     <div>
                       <span className="text-slate-400 block">Equipo Asignado:</span>
                       <strong className="text-white">{ticket.equipment.brand} {ticket.equipment.model}</strong>
@@ -147,71 +147,72 @@ export default async function TicketDetailPage({ params }: Props) {
 
             </div>
 
-            {/* COLUMNA DERECHA (1 COL): ATENDER TICKET (SOLO TÉCNICO) VS RESUMEN CLIENTE */}
+            {/* COLUMNA DERECHA: TÉCNICO VS CLIENTE (PENDIENTE O RESUELTO) */}
             <div className="lg:col-span-1">
-              {isTechnician ? ( ticket.status !== "RESOLVED" && ticket.status !== "CLOSED" ? (
-                /* FORMULARIO DE RESOLUCIÓN EXCLUSIVO PARA TÉCNICOS */
-                <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl sticky top-8 space-y-4">
-                  <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
-                    <CheckCircle2 className="w-5 h-5 text-amber-400" />
-                    <h2 className="text-sm font-bold text-white">Atender e Imputar Horas</h2>
-                  </div>
-
-                  <form action={handleResolveTicket} className="space-y-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                        Horas Trabajadas
-                      </label>
-                      <input 
-                        type="number" 
-                        name="hours" 
-                        step="0.5" 
-                        min="0.5" 
-                        placeholder="Ej: 1.5" 
-                        required 
-                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 font-mono"
-                      />
+              {isTechnician ? (
+                ticket.status !== "RESOLVED" && ticket.status !== "CLOSED" ? (
+                  /* FORMULARIO DE RESOLUCIÓN PARA TÉCNICOS */
+                  <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl sticky top-8 space-y-4">
+                    <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+                      <CheckCircle2 className="w-5 h-5 text-amber-400" />
+                      <h2 className="text-sm font-bold text-white">Atender e Imputar Horas</h2>
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                        Estado del Ticket
-                      </label>
-                      <select 
-                        name="status" 
-                        defaultValue="RESOLVED"
-                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500"
+                    <form action={handleResolveTicket} className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                          Horas Trabajadas
+                        </label>
+                        <input 
+                          type="number" 
+                          name="hours" 
+                          step="0.5" 
+                          min="0.5" 
+                          placeholder="Ej: 1.5" 
+                          required 
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 font-mono"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                          Estado del Ticket
+                        </label>
+                        <select 
+                          name="status" 
+                          defaultValue="RESOLVED"
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500"
+                        >
+                          <option value="IN_PROGRESS">En Progreso</option>
+                          <option value="RESOLVED">Resuelto / Completado</option>
+                          <option value="CLOSED">Cerrado</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                          Nota / Solución Aplicada
+                        </label>
+                        <textarea 
+                          name="description" 
+                          rows={4} 
+                          placeholder="Describe qué trabajo se realizó o cómo se solucionó la falla..." 
+                          required 
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-amber-500 resize-none"
+                        />
+                      </div>
+
+                      <button 
+                        type="submit" 
+                        className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg cursor-pointer"
                       >
-                        <option value="IN_PROGRESS">En Progreso</option>
-                        <option value="RESOLVED">Resuelto / Completado</option>
-                        <option value="CLOSED">Cerrado</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                        Nota / Solución Aplicada
-                      </label>
-                      <textarea 
-                        name="description" 
-                        rows={4} 
-                        placeholder="Describe qué trabajo se realizó o cómo se solucionó la falla..." 
-                        required 
-                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-amber-500 resize-none"
-                      />
-                    </div>
-
-                    <button 
-                      type="submit" 
-                      className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg cursor-pointer"
-                    >
-                      <Send className="w-4 h-4" />
-                      <span>Registrar Trabajo y Guardar</span>
-                    </button>
-                  </form>
-                </section>
-              ) : (
-                  /* SI ES TÉCNICO PERO EL TICKET YA FUE RESUELTO/CERRADO */
+                        <Send className="w-4 h-4" />
+                        <span>Registrar Trabajo y Guardar</span>
+                      </button>
+                    </form>
+                  </section>
+                ) : (
+                  /* VISTA PARA TÉCNICO CUANDO EL TICKET FUE FINALIZADO */
                   <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl sticky top-8 space-y-4">
                     <div className="flex items-center gap-2 border-b border-slate-800 pb-3 text-emerald-400">
                       <CheckCircle2 className="w-5 h-5" />
@@ -221,23 +222,40 @@ export default async function TicketDetailPage({ params }: Props) {
                       Este ticket se encuentra cerrado o resuelto. No se pueden seguir imputando horas de trabajo.
                     </p>
                     <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-emerald-400 font-mono text-xs text-center font-semibold">
-                      Estado Actual: {ticket.status}
+                      Estado Actual: {ticket.status === "RESOLVED" ? "Resuelto" : "Cerrado"}
                     </div>
                   </section>
                 )
-              ): (
-                /* VISTA PARA CLIENTE FINAL */
-                <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl sticky top-8 space-y-4 text-xs">
-                  <h2 className="text-sm font-bold text-white border-b border-slate-800 pb-3">
-                    Estado de tu Solicitud
-                  </h2>
-                  <p className="text-slate-400 leading-relaxed">
-                    Nuestros técnicos están trabajando en este caso. Podrás seguir los avances y las horas asignadas desde la línea de tiempo.
-                  </p>
-                  <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-slate-300">
-                    SLA Activo: <strong className="text-amber-400">Atención Garantizada</strong>
-                  </div>
-                </section>
+              ) : (
+                /* VISTA PARA CLIENTE FINAL (ADAPTATIVA SEGÚN ESTADO) */
+                ticket.status === "RESOLVED" || ticket.status === "CLOSED" ? (
+                  /* CLIENTE: CASO RESUELTO */
+                  <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl sticky top-8 space-y-4 text-xs">
+                    <div className="flex items-center gap-2 border-b border-slate-800 pb-3 text-emerald-400">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <h2 className="text-sm font-bold text-white">Solicitud Resuelta</h2>
+                    </div>
+                    <p className="text-slate-400 leading-relaxed">
+                      Tu solicitud ha sido solucionada con éxito por nuestro equipo técnico. Podrás revisar el detalle de los trabajos realizados en la línea de tiempo.
+                    </p>
+                    <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-emerald-400 font-mono text-xs text-center font-semibold">
+                      Estado: {ticket.status === "RESOLVED" ? "Resuelto" : "Cerrado"}
+                    </div>
+                  </section>
+                ) : (
+                  /* CLIENTE: CASO EN PROCESO / PENDIENTE */
+                  <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl sticky top-8 space-y-4 text-xs">
+                    <h2 className="text-sm font-bold text-white border-b border-slate-800 pb-3">
+                      Estado de tu Solicitud
+                    </h2>
+                    <p className="text-slate-400 leading-relaxed">
+                      Nuestros técnicos están trabajando en este caso. Podrás seguir los avances y las horas asignadas desde la línea de tiempo.
+                    </p>
+                    <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-slate-300">
+                      SLA Activo: <strong className="text-amber-400">Atención Garantizada</strong>
+                    </div>
+                  </section>
+                )
               )}
             </div>
 

@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/db";
 import { TicketService } from "@/services/ticket.service";
+import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -18,10 +19,10 @@ export async function createTicketAction(
   if (!title || !description || !priority) return;
 
   // Traemos provisoriamente el primer usuario para la foreign key obligatoria
-  const defaultUser = await prisma.user.findFirst();
-  if (!defaultUser) {
-    console.error("No se encontró ningún usuario de respaldo en la base de datos.");
-    return;
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    throw new Error("Debes iniciar sesión para crear un ticket.");
   }
 
   const equipmentId = equipmentIdRaw === "none" ? null : equipmentIdRaw;
@@ -32,7 +33,7 @@ export async function createTicketAction(
       description,
       priority,
       tenantId,
-      userId: defaultUser.id,
+      userId: currentUser.id,
       equipmentId,
     });
   } catch (error) {

@@ -49,7 +49,7 @@ export default async function TenantUsersPage({ params }: Props) {
               <div>
                 <h1 className="text-2xl font-bold text-white tracking-tight">Usuarios de {tenant.name}</h1>
                 <p className="text-xs text-slate-400 mt-1">
-                  Gestión e id de empleados autorizados para abrir tickets en esta compañía.
+                  Gestión de empleados autorizados para abrir tickets en esta compañía.
                 </p>
               </div>
 
@@ -62,7 +62,7 @@ export default async function TenantUsersPage({ params }: Props) {
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
                     <tr className="bg-slate-950/50 border-b border-slate-800 text-slate-400 font-mono uppercase tracking-wider">
-                      <th className="py-3.5 px-6 font-semibold">Usuario / Nombre</th>
+                      <th className="py-3.5 px-6 font-semibold">Nombre Completo</th>
                       <th className="py-3.5 px-6 font-semibold">Email</th>
                       <th className="py-3.5 px-6 font-semibold">Rol</th>
                       <th className="py-3.5 px-6 font-semibold text-right">Fecha Registro</th>

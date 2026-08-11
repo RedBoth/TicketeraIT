@@ -1,5 +1,7 @@
 "use server";
 
+import prisma from "@/lib/db";
+import { UserService } from "@/services/user.service";
 import { TenantService } from "@/services/tenant.service";
 import { revalidatePath } from "next/cache";
 

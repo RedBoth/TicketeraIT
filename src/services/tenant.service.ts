@@ -119,10 +119,10 @@ export class TenantService {
     return await prisma.user.create({
       data: {
         email: data.email,
-        name: data.name,
-        role: data.role || "CLIENTE_FINAL",
+        name: data.name || "",
+        role: (data.role || "CLIENTE_FINAL") as any,
         tenantId: data.tenantId,
-        password: data.password,
+        password: data.password || "Empresa2026!",
       }
     });
   }
